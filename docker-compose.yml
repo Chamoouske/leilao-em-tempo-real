@@ -53,7 +53,7 @@ services:
     networks:
       - backend-network
 
-  graphql:
+  ui:
     container_name: leilao-ui
     build:
       context: ./leilao-ui
