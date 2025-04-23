@@ -62,7 +62,6 @@ services:
     environment:
       GRAPHQL_URL: ${GRAPHQL_URL}
     networks:
-      - kafka-network
       - graphql-network
 
 networks:
