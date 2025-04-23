@@ -1,16 +1,19 @@
-FROM node:23-alpine
-
-ARG APP_ENV
-ARG GRAPHQL_PORT
-
-ENV NODE_ENV=${APP_ENV}
+FROM node:slim AS builder
 
 WORKDIR /app
-
 COPY package*.json ./
-RUN npm install --production
-
+RUN npm ci && npm i -g @angular/cli && npm install react --save
 COPY . .
 
-EXPOSE ${GRAPHQL_PORT}
-CMD ["npm", "start"]
+ARG GRAPHQL_URL
+RUN sed -i "s|%%GRAPHQL_URL%%|${GRAPHQL_URL}|g" src/environments/environment.ts
+RUN npm run build -- --configuration=production
+
+FROM nginx:alpine
+
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist/leilao-ui /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
