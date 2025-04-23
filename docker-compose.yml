@@ -40,7 +40,7 @@ services:
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
-    profiles: ["local"]
+    profiles: ["local", "dev"]
     ports:
       - "${KAFKA_UI_PORT:-9000}:8080"
     container_name: kafka-ui
