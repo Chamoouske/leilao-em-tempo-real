@@ -8,7 +8,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     networks:
-      - kafka-network
+      - backend-network
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "2181" ]
       interval: 10s
@@ -31,7 +31,7 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     networks:
-      - kafka-network
+      - backend-network
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "9092" ]
       interval: 10s
@@ -51,7 +51,7 @@ services:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: ${KAFKA_BOOTSTRAP_SERVERS}
     networks:
-      - kafka-network
+      - backend-network
 
   graphql:
     container_name: leilao-ui
@@ -62,10 +62,10 @@ services:
     environment:
       GRAPHQL_URL: ${GRAPHQL_URL}
     networks:
-      - graphql-network
+      - frontend-network
 
 networks:
-  kafka-network:
+  backend-network:
     driver: bridge
-  graphql-network:
+  frontend-network:
     driver: bridge
