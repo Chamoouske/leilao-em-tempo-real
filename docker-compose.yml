@@ -40,7 +40,7 @@ services:
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
-    profiles: ["local", "dev"]
+    profiles: [ "local", "dev" ]
     ports:
       - "${KAFKA_UI_PORT:-9000}:8080"
     container_name: kafka-ui
@@ -57,10 +57,10 @@ services:
     container_name: leilao-ui
     build:
       context: ./leilao-ui
+      args:
+        - GRAPHQL_URL=${GRAPHQL_URL}
     ports:
       - "${GRAPHQL_PORT:-4200}:80"
-    environment:
-      GRAPHQL_URL: ${GRAPHQL_URL}
     networks:
       - frontend-network
 
