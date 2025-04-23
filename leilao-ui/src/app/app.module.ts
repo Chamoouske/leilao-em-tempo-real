@@ -4,11 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
 import { HttpLink } from '@apollo/client';
 import { APOLLO_OPTIONS } from 'apollo-angular';
+import { environment } from '../environments/environment';
 
 export function createApollo(): ApolloClientOptions<any> {
   return {
     link: new HttpLink({
-      uri: process.env.GRAPHQL_URL,
+      uri: environment.graphQLUri,
     }),
     cache: new InMemoryCache(),
   };
