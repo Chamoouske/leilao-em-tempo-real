@@ -54,9 +54,9 @@ services:
       - kafka-network
 
   graphql:
-    container_name: graphql
+    container_name: leilao-ui
     build:
-      context: ./graphql
+      context: ./leilao-ui
     ports:
       - "${GRAPHQL_PORT:-4000}:4000"
     environment:
