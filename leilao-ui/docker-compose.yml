@@ -3,21 +3,7 @@ services:
     build:
       context: .
       args:
-        - APP_ENV=${APP_ENV}
         - GRAPHQL_PORT=${GRAPHQL_PORT:-4200}
     container_name: graphql-service
-    restart: unless-stopped
     ports:
       - "4200:4200"
-    environment:
-      KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS}
-    depends_on:
-      kafka:
-        condition: service_healthy
-    networks:
-      - frontend-network
-
-networks:
-  frontend-network:
-    external: true
-    name: frontend-network
