@@ -8,7 +8,7 @@ import { APOLLO_OPTIONS } from 'apollo-angular';
 export function createApollo(): ApolloClientOptions<any> {
   return {
     link: new HttpLink({
-      uri: 'http://host.docker.internal:8082/graphql',
+      uri: process.env.GRAPHQL_URL,
     }),
     cache: new InMemoryCache(),
   };
