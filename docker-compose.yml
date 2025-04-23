@@ -58,7 +58,7 @@ services:
     build:
       context: ./leilao-ui
     ports:
-      - "${GRAPHQL_PORT:-4200}:4200"
+      - "${GRAPHQL_PORT:-4200}:80"
     environment:
       GRAPHQL_URL: ${GRAPHQL_URL}
     networks:
