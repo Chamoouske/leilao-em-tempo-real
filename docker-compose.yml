@@ -57,10 +57,8 @@ services:
     container_name: leilao-ui
     build:
       context: ./leilao-ui
-      args:
-        - GRAPHQL_URL=${GRAPHQL_URL}
     ports:
-      - "${GRAPHQL_PORT:-4200}:80"
+      - "${FRONTEND_PORT:-4200}:80"
     networks:
       - frontend-network
 
