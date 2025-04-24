@@ -1,0 +1,32 @@
+name: Merge Master into Development (Bypass Rules)
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [master]
+
+jobs:
+  merge-master-into-dev:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_BYPASS_RULES }}
+          fetch-depth: 0
+
+      - name: Configurar Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "ajaxlima94@gmail.com"
+
+      - name: Merge master into development
+        run: |
+          git checkout desenvolvimento
+          git pull origin desenvolvimento
+          git merge origin/master --no-ff --no-edit
+          git push "https://${{ github.actor }}:${{ secrets.PAT_BYPASS_RULES }}@github.com/${{ github.repository }}.git" HEAD:desenvolvimento
