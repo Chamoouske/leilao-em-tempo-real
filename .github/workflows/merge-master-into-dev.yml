@@ -29,5 +29,4 @@ jobs:
           git checkout desenvolvimento
           git pull origin desenvolvimento
           git merge origin/master --no-ff --no-edit
-          # Usa o PAT para fazer o push (ignora proteções)
-          git push "https://${{ secrets.PAT_BYPASS_RULES }}@github.com/${{ github.repository }}.git" HEAD:desenvolvimento
+          git push "https://${{ github.actor }}:${{ secrets.PAT_BYPASS_RULES }}@github.com/${{ github.repository }}.git" HEAD:desenvolvimento
