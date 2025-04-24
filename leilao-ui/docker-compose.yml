@@ -2,8 +2,6 @@ services:
   graphql-service:
     build:
       context: .
-      args:
-        - GRAPHQL_PORT=${GRAPHQL_PORT:-4200}
     container_name: graphql-service
     ports:
       - "4200:4200"
