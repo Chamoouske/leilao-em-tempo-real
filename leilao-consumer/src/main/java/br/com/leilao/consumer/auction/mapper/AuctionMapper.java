@@ -19,6 +19,6 @@ public interface AuctionMapper {
 
     default LocalDateTime mapLocalDateTime(LocalDateTime localDateTime) {
         Optional<LocalDateTime> offsetDateTime = Optional.ofNullable(localDateTime);
-        return offsetDateTime.orElse(LocalDateTime.now());
+        return offsetDateTime.orElseGet(LocalDateTime::now);
     }
 }
