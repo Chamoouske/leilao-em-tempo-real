@@ -3,6 +3,7 @@ package br.com.leilao.consumer.auction.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import br.com.leilao.consumer.auction.dto.BidAuctionDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,9 +42,13 @@ public class Auction {
     @Column(name = "current_bidder")
     private String currentBidder;
 
-    public void updateCurrentBid(BigDecimal currentBid, String currentBidder) {
-        this.currentBid = currentBid;
-        this.currentBidder = currentBidder;
+    public void updateCurrentBid(BidAuctionDto newBidAuctionDto) {
+        if (!newBidAuctionDto.auctionVersion().equals(this.version.toString())) {
+            throw new RuntimeException("Auction version is not valid");
+        }
+
+        this.currentBid = newBidAuctionDto.amount();
+        this.currentBidder = newBidAuctionDto.bidderId();
         this.version++;
     }
 }

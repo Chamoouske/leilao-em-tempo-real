@@ -3,6 +3,7 @@ package br.com.leilao.consumer.auction.service;
 import org.springframework.stereotype.Service;
 
 import br.com.leilao.consumer.auction.dto.AuctionDto;
+import br.com.leilao.consumer.auction.dto.BidAuctionDto;
 import br.com.leilao.consumer.auction.repository.AuctionRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ public class AuctionServiceLogger implements AuctionService {
     }
 
     @Override
-    public void update(AuctionDto auction) {
+    public void update(BidAuctionDto auction) {
         log.info("Updating Auction: {}", auction);
         auctionService.update(auction);
     }

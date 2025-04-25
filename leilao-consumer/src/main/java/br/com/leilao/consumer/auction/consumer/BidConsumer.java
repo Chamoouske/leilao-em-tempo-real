@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 import org.springframework.stereotype.Component;
 
-import br.com.leilao.consumer.auction.dto.AuctionDto;
+import br.com.leilao.consumer.auction.dto.BidAuctionDto;
 import br.com.leilao.consumer.auction.service.AuctionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,17 +12,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AuctionConsumer implements Consumer<AuctionDto> {
+public class BidConsumer implements Consumer<BidAuctionDto> {
     private final AuctionService auctionService;
 
     @Override
-    public void accept(AuctionDto auction) {
+    public void accept(BidAuctionDto newBidAuctionDto) {
+        log.info("Receiving new bid: {}", newBidAuctionDto);
         try {
-            log.info("Receiving auction: {}", auction);
-            auctionService.save(auction);
-            log.info("Auction saved successfully");
+            auctionService.update(newBidAuctionDto);
+            log.info("New bid processed successfully");
         } catch (Exception e) {
-            log.error("Error saving auction: {}", e.getMessage(), e);
+            log.error("Error processing bid: {}", e.getMessage(), e);
             throw e;
         }
     }

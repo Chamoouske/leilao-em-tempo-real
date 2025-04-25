@@ -14,8 +14,9 @@ import br.com.leilao.consumer.auction.entity.Auction;
 public interface AuctionMapper {
     AuctionMapper INSTANCE = Mappers.getMapper(AuctionMapper.class);
 
-    @Mapping(target = "version", expression = "java(auctionDto.auctionVersion())")
+    @Mapping(target = "version", expression = "java(mapVersion(auctionDto.version()))")
     @Mapping(target = "createdAt", expression = "java(mapLocalDateTime(auctionDto.createdAt()))")
+    @Mapping(target = "currentBid", expression = "java(mapCurrentBid(auctionDto.currentBid()))")
     Auction toEntity(AuctionDto auctionDto);
 
     AuctionDto toDto(Auction auction);
@@ -28,5 +29,10 @@ public interface AuctionMapper {
     default Long mapVersion(Long version) {
         Optional<Long> offsetVersion = Optional.ofNullable(version);
         return offsetVersion.orElse(1L);
+    }
+
+    default Long mapCurrentBid(Long currentBid) {
+        Optional<Long> offsetCurrentBid = Optional.ofNullable(currentBid);
+        return offsetCurrentBid.orElse(0L);
     }
 }

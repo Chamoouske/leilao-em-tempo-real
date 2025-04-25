@@ -5,7 +5,7 @@ spring:
     active: @spring.profiles.active@
   cloud:
     function:
-      definition: auctionConsumer
+      definition: auctionConsumer;bidConsumer
     stream:
       kafka:
           binder:
@@ -15,9 +15,19 @@ spring:
               consumer:
                 enable-dlq: true
                 dlq-name: auction-dlq
+            bidConsumer-in-0:
+              consumer:
+                enable-dlq: true
+                dlq-name: bid-dlq
       bindings:
         auctionConsumer-in-0:
           destination: auction
+          group: auctions
+          consumer:
+            concurrency: 1
+            max-attempts: 3
+        bidConsumer-in-0:
+          destination: bid
           group: auctions
           consumer:
             concurrency: 1
