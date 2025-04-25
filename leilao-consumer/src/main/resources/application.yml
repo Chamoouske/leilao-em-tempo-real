@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: leilao-consumer
+  profiles:
+    active: @spring.profiles.active@
+  cloud:
+    stream:
+      bindings:
+        producerLeilao-in-0:
+          destination: leiloes
