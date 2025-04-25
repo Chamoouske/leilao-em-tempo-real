@@ -7,8 +7,8 @@ spring:
   cloud:
     stream:
       bindings:
-        producerOrder-out-0:
-          destination: order-created
+        producerLeilao-out-0:
+          destination: leiloes
 
   graphql:
     cors:
