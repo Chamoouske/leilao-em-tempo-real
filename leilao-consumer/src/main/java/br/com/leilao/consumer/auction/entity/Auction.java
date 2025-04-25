@@ -47,6 +47,10 @@ public class Auction {
             throw new RuntimeException("Auction version is not valid");
         }
 
+        if (newBidAuctionDto.amount().compareTo(this.currentBid) <= 0) {
+            throw new RuntimeException("New bid is not greater than current bid");
+        }
+
         this.currentBid = newBidAuctionDto.amount();
         this.currentBidder = newBidAuctionDto.bidderId();
         this.version++;
