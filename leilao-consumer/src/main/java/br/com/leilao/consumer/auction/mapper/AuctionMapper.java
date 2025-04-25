@@ -1,5 +1,8 @@
 package br.com.leilao.consumer.auction.mapper;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -13,4 +16,9 @@ public interface AuctionMapper {
     Auction toEntity(AuctionDto auctionDto);
 
     AuctionDto toDto(Auction auction);
+
+    default LocalDateTime mapLocalDateTime(LocalDateTime localDateTime) {
+        Optional<LocalDateTime> offsetDateTime = Optional.ofNullable(localDateTime);
+        return offsetDateTime.orElse(LocalDateTime.now());
+    }
 }
