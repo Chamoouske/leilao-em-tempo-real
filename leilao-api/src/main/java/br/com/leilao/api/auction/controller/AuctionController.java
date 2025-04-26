@@ -6,14 +6,19 @@ import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
+import br.com.leilao.api.auction.dto.AuctionDto;
+import br.com.leilao.api.auction.service.AuctionService;
+
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class AuctionController {
+    private final AuctionService service;
+
     @MutationMapping(value = "new/auction")
-    public void publishAuctionMessage(@Argument String det) {
-        System.out.println(det);
+    public void createAuction(@Argument AuctionDto det) {
+        service.createAuction(det);
     }
 
     @QueryMapping(value = "list/auction")

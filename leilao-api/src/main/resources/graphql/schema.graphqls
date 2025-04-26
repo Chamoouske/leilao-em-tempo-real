@@ -1,7 +1,49 @@
-type Query {
-    hello: String
+input AuctionInput {
+    id: Long
+    name: String!
+    description: String
+    status: String
+    endDate: LocalDateTime
+    version: Long
+    createdAt: LocalDateTime
+    currentBid: BigDecimal
+    currentBidder: String
 }
 
-type Mutation {
-    echo(message: String!): String!
+input BidInput {
+    auctionId: Long!
+    bidderId: String!
+    amount: BigDecimal!
+    version: Long!
+}
+
+input SearchBidInput {
+    auctionId: Long
+    bidderId: String
+    amount: BigDecimal
+}
+
+type Auction {
+    id: Long!
+    name: String!
+    description: String!
+    status: String!
+    endDate: LocalDateTime!
+    version: Long!
+    createdAt: LocalDateTime!
+    currentBid: BigDecimal!
+    currentBidder: String!
+}
+
+type Bid {
+    auctionId: Long!
+    bidderId: String!
+    amount: BigDecimal!
+    version: Long!
+}
+
+type PublishResponse {
+    success: Boolean!
+    message: String!
+    auctionId: ID!
 }

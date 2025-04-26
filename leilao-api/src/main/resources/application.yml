@@ -7,8 +7,10 @@ spring:
   cloud:
     stream:
       bindings:
-        producerLeilao-out-0:
-          destination: leiloes
+        auction-out-0:
+          destination: auction
+        bid-out-0:
+          destination: bid
 
   graphql:
     cors:
