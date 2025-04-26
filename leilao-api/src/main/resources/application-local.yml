@@ -14,7 +14,12 @@ spring:
         show_sql: true
         format_sql: true
     open-in-view: false
-      
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:29092
+
 logging:
   level:
     org.hibernate.SQL: debug
