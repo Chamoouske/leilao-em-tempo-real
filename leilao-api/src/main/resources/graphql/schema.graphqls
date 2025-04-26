@@ -1,49 +1,62 @@
 input AuctionInput {
-    id: Long
+    id: Int
     name: String!
     description: String
     status: String
-    endDate: LocalDateTime
-    version: Long
-    createdAt: LocalDateTime
-    currentBid: BigDecimal
+    endDate: DateTime
+    version: Int
+    createdAt: DateTime
+    currentBid: Float
     currentBidder: String
 }
 
 input BidInput {
-    auctionId: Long!
+    auctionId: Int!
     bidderId: String!
-    amount: BigDecimal!
-    version: Long!
+    amount: Float!
+    version: Int!
 }
 
 input SearchBidInput {
-    auctionId: Long
+    auctionId: Int
     bidderId: String
-    amount: BigDecimal
+    amount: Float
 }
 
 type Auction {
-    id: Long!
+    id: Int!
     name: String!
     description: String!
     status: String!
-    endDate: LocalDateTime!
-    version: Long!
-    createdAt: LocalDateTime!
-    currentBid: BigDecimal!
+    endDate: DateTime!
+    version: Int!
+    createdAt: DateTime!
+    currentBid: Float!
     currentBidder: String!
 }
 
 type Bid {
-    auctionId: Long!
+    auctionId: Int!
     bidderId: String!
-    amount: BigDecimal!
-    version: Long!
+    amount: Float!
+    version: Int!
 }
 
 type PublishResponse {
     success: Boolean!
     message: String!
     auctionId: ID!
+}
+
+type Query {
+    auction(id: Int!): Auction
+    auctions: [Auction!]!
+    bid(id: Int!): Bid
+    bids(auctionId: Int!): [Bid!]!
+}
+
+type Mutation {
+    createAuction(input: AuctionInput!): Auction!
+    createBid(input: BidInput!): Bid!
+    publishAuction(id: Int!): PublishResponse!
 }

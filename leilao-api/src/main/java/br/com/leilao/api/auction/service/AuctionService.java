@@ -11,6 +11,7 @@ import br.com.leilao.api.auction.mapper.AuctionMapper;
 import br.com.leilao.api.auction.repository.AuctionRepository;
 import br.com.leilao.api.auction.repository.AuctionSpecification;
 import br.com.leilao.api.bid.dto.SearchBidDto;
+import br.com.leilao.api.publishresponse.dto.PublishResponseDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -19,8 +20,9 @@ public class AuctionService {
     private final AuctionRepository repository;
     private final Consumer<AuctionDto> producer;
 
-    public void createAuction(AuctionDto auctionDto) {
+    public PublishResponseDto createAuction(AuctionDto auctionDto) {
         producer.accept(auctionDto);
+        return new PublishResponseDto("Auction created successfully", true, auctionDto.id());
     }
 
     public List<AuctionDto> listAuction(SearchBidDto search) {

@@ -11,6 +11,7 @@ import br.com.leilao.api.auction.dto.AuctionDto;
 import br.com.leilao.api.bid.dto.BidAuctionDto;
 import br.com.leilao.api.bid.dto.SearchBidDto;
 import br.com.leilao.api.bid.service.BidService;
+import br.com.leilao.api.publishresponse.dto.PublishResponseDto;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -19,12 +20,12 @@ public class BidController {
     private final BidService service;
 
     @MutationMapping(value = "bid/auction")
-    public void bidAuction(@Argument BidAuctionDto bid) {
-        service.createBid(bid);
+    public PublishResponseDto bidAuction(@Argument BidAuctionDto bid) {
+        return service.createBid(bid);
     }
 
     @QueryMapping(value = "list/bid")
     public List<AuctionDto> listBid(@Argument SearchBidDto search) {
-        return null;
+        return service.listBid(search);
     }
 }

@@ -9,6 +9,7 @@ import br.com.leilao.api.auction.dto.AuctionDto;
 import br.com.leilao.api.auction.service.AuctionService;
 import br.com.leilao.api.bid.dto.BidAuctionDto;
 import br.com.leilao.api.bid.dto.SearchBidDto;
+import br.com.leilao.api.publishresponse.dto.PublishResponseDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -17,8 +18,9 @@ public class BidService {
     private final Consumer<BidAuctionDto> producer;
     private final AuctionService auctionService;
 
-    public void createBid(BidAuctionDto bid) {
+    public PublishResponseDto createBid(BidAuctionDto bid) {
         producer.accept(bid);
+        return new PublishResponseDto("Bid created successfully", true, bid.auctionId());
     }
 
     public List<AuctionDto> listBid(SearchBidDto search) {

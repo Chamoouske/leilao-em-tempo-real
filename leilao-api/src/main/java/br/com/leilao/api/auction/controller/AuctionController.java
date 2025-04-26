@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 
 import br.com.leilao.api.auction.dto.AuctionDto;
 import br.com.leilao.api.auction.service.AuctionService;
+import br.com.leilao.api.bid.dto.SearchBidDto;
+import br.com.leilao.api.publishresponse.dto.PublishResponseDto;
 
 import java.util.List;
 
@@ -17,12 +19,12 @@ public class AuctionController {
     private final AuctionService service;
 
     @MutationMapping(value = "new/auction")
-    public void createAuction(@Argument AuctionDto det) {
-        service.createAuction(det);
+    public PublishResponseDto createAuction(@Argument AuctionDto det) {
+        return service.createAuction(det);
     }
 
     @QueryMapping(value = "list/auction")
-    public List<String> stringList() {
-        return List.of("1", "2");
+    public List<AuctionDto> listAuction(@Argument SearchBidDto search) {
+        return service.listAuction(search);
     }
 }
