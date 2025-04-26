@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import br.com.leilao.api.auction.dto.AuctionDto;
 import br.com.leilao.api.auction.mapper.AuctionMapper;
 import br.com.leilao.api.auction.repository.AuctionRepository;
+import br.com.leilao.api.auction.repository.AuctionSpecification;
+import br.com.leilao.api.bid.dto.SearchBidDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -21,7 +23,9 @@ public class AuctionService {
         producer.accept(auctionDto);
     }
 
-    public List<AuctionDto> listAuction() {
-        return repository.findAll().stream().map(AuctionMapper.INSTANCE::toDto).collect(Collectors.toList());
+    public List<AuctionDto> listAuction(SearchBidDto search) {
+        return repository.findAll(new AuctionSpecification(search)).stream()
+                .map(AuctionMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
     }
 }
