@@ -2,6 +2,7 @@ package br.com.leilao.consumer.auction.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import br.com.leilao.consumer.auction.dto.BidAuctionDto;
 import jakarta.persistence.Column;
@@ -43,7 +44,7 @@ public class Auction {
     private String currentBidder;
 
     public void updateCurrentBid(BidAuctionDto newBidAuctionDto) {
-        if (!newBidAuctionDto.auctionVersion().equals(this.version.toString())) {
+        if (!Objects.equals(this.version, newBidAuctionDto.auctionVersion())) {
             throw new RuntimeException("Auction version is not valid");
         }
 
