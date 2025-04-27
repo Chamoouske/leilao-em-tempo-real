@@ -3,15 +3,24 @@ FROM eclipse-temurin:17-jdk-alpine AS builder
 
 WORKDIR /build
 
-COPY . .
-RUN ./mvnw clean package -DskipTests -T 2C
+# Copiar apenas os arquivos necessários para o build
+COPY pom.xml .
+COPY mvnw .
+COPY .mvn .mvn
+RUN ./mvnw dependency:go-offline
+
+# Copiar o código fonte
+COPY src ./src
+
+# Build com otimizações
+RUN ./mvnw clean package -DskipTests -T 2C -Dmaven.compiler.fork=true -Dmaven.compiler.memory=512m
 
 # Runtime stage
 FROM eclipse-temurin:17-jre-alpine
 
 # Configuração do ambiente
 WORKDIR /app
-ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:InitialRAMPercentage=50.0 -XX:MinRAMPercentage=25.0"
+ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:InitialRAMPercentage=50.0 -XX:MinRAMPercentage=25.0 -XX:+UseG1GC -XX:MaxGCPauseMillis=200"
 
 # Criação de usuário não-root
 RUN addgroup -S spring && adduser -S spring -G spring
