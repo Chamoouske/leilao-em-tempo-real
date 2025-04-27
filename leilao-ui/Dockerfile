@@ -5,8 +5,10 @@ COPY . .
 RUN npm ci && npm i -g @angular/cli
 
 ARG GRAPHQL_URL
+ARG APP_ENV
 RUN sed -i "s|%%GRAPHQL_URL%%|${GRAPHQL_URL}|g" src/environments/environment.ts
-RUN npm run build -- --configuration=production
+RUN sed -i "s|%%APP_ENV%%|${APP_ENV}|g" src/environments/environment.ts
+RUN npm run build -- --configuration=${APP_ENV}
 
 FROM nginx:alpine
 

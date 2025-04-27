@@ -1,10 +1,8 @@
-package br.com.leilao.consumer.auction.entity;
+package br.com.leilao.api.auction.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-import br.com.leilao.consumer.auction.dto.BidAuctionDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,18 +40,4 @@ public class Auction {
     private BigDecimal currentBid;
     @Column(name = "current_bidder")
     private String currentBidder;
-
-    public void updateCurrentBid(BidAuctionDto newBidAuctionDto) {
-        if (!Objects.equals(this.version, newBidAuctionDto.auctionVersion())) {
-            throw new RuntimeException("Auction version is not valid");
-        }
-
-        if (newBidAuctionDto.amount().compareTo(this.currentBid) <= 0) {
-            throw new RuntimeException("New bid is not greater than current bid");
-        }
-
-        this.currentBid = newBidAuctionDto.amount();
-        this.currentBidder = newBidAuctionDto.bidderId();
-        this.version++;
-    }
 }
