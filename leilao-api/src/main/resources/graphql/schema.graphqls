@@ -41,7 +41,6 @@ type Bid {
 type PublishResponse {
     success: Boolean!
     message: String!
-    auctionId: ID!
 }
 
 type Query {

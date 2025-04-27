@@ -1,3 +1,3 @@
 export const environment = {
-    graphQLUri: 'http://localhost:7001/graphql'
+    graphQLUri: 'http://local.leilao.api.br:7001/graphql'
 }; 

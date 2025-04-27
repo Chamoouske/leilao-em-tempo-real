@@ -1,14 +1,16 @@
 FROM node:22-slim AS build
 
 WORKDIR /app
-COPY . .
-RUN npm ci && npm i -g @angular/cli
 
-ARG GRAPHQL_URL
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+RUN npm i -g @angular/cli
+
 ARG APP_ENV
-RUN sed -i "s|%%GRAPHQL_URL%%|${GRAPHQL_URL}|g" src/environments/environment.ts
-RUN sed -i "s|%%APP_ENV%%|${APP_ENV}|g" src/environments/environment.ts
-RUN npm run build -- --configuration=${APP_ENV}
+RUN npm run build -- --configuration=${APP_ENV} --progress=false
 
 FROM nginx:alpine
 

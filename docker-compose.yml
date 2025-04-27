@@ -13,7 +13,7 @@ services:
       test: [ "CMD", "nc", "-z", "localhost", "2181" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -37,7 +37,7 @@ services:
       test: [ "CMD", "nc", "-z", "localhost", "9092" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -75,7 +75,7 @@ services:
       test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
       start_period: 30s
     networks:
       - backend-network
@@ -85,7 +85,6 @@ services:
     build:
       context: ./leilao-ui
       args:
-        GRAPHQL_URL: ${GRAPHQL_URL}
         APP_ENV: ${APP_ENV}
     ports:
       - "${FRONTEND_PORT:-4200}:80"
