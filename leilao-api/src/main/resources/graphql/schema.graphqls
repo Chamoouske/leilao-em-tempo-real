@@ -9,7 +9,7 @@ input BidInput {
     auctionId: Int!
     bidderId: String!
     amount: Float!
-    version: Int!
+    auctionVersion: Int!
 }
 
 input SearchBidInput {
@@ -35,7 +35,7 @@ type Bid {
     auctionId: Int!
     bidderId: String!
     amount: Float!
-    version: Int!
+    auctionVersion: Int!
 }
 
 type PublishResponse {
