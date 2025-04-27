@@ -17,14 +17,15 @@ public interface AuctionMapper {
     Long DEFAULT_VERSION = 1L;
     BigDecimal DEFAULT_CURRENT_BID = BigDecimal.ZERO;
 
-    @Mapping(target = "version", defaultExpression = "java(DEFAULT_VERSION)")
-    @Mapping(target = "currentBid", defaultExpression = "java(DEFAULT_CURRENT_BID)")
-    @Mapping(target = "createdAt", expression = "java(mapLocalDateTime(auctionDto.createdAt()))")
+    @Mapping(target = "currentBidder", ignore = true)
+    @Mapping(target = "endDate", ignore = true)
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "version", expression = "java(DEFAULT_VERSION)")
+    @Mapping(target = "createdAt", expression = "java(setCreatedAt(null))")
+    @Mapping(target = "currentBid", expression = "java(DEFAULT_CURRENT_BID)")
     Auction toEntity(AuctionDto auctionDto);
 
-    AuctionDto toDto(Auction auction);
-
-    default LocalDateTime mapLocalDateTime(LocalDateTime localDateTime) {
+    default LocalDateTime setCreatedAt(LocalDateTime localDateTime) {
         Optional<LocalDateTime> offsetDateTime = Optional.ofNullable(localDateTime);
         return offsetDateTime.orElseGet(LocalDateTime::now);
     }

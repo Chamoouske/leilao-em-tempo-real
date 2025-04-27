@@ -1,3 +1,3 @@
 export const environment = {
-    graphQLUri: '%%GRAPHQL_URL%%',
+    graphQLUri: 'http://localhost:7001/graphql',
 };

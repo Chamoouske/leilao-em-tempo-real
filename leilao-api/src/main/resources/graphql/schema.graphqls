@@ -1,7 +1,54 @@
+scalar DateTime
+
+input AuctionInput {
+    name: String!
+    description: String
+}
+
+input BidInput {
+    auctionId: Int!
+    bidderId: String!
+    amount: Float!
+    auctionVersion: Int!
+}
+
+input SearchBidInput {
+    auctionId: Int
+    bidderId: String
+    description: String
+    amount: Float
+}
+
+type Auction {
+    id: Int!
+    name: String!
+    description: String
+    status: String
+    endDate: DateTime
+    version: Int
+    createdAt: DateTime
+    currentBid: Float
+    currentBidder: String
+}
+
+type Bid {
+    auctionId: Int!
+    bidderId: String!
+    amount: Float!
+    auctionVersion: Int!
+}
+
+type PublishResponse {
+    success: Boolean!
+    message: String!
+    auctionId: ID!
+}
+
 type Query {
-    hello: String
+    auctions(input: SearchBidInput!): [Auction]!
 }
 
 type Mutation {
-    echo(message: String!): String!
+    createAuction(input: AuctionInput!): PublishResponse!
+    createBid(input: BidInput!): PublishResponse!
 }

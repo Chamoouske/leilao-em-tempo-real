@@ -1,4 +1,4 @@
-package br.com.leilao.consumer.auction.dto;
+package br.com.leilao.api.bid.dto;
 
 import java.math.BigDecimal;
 
