@@ -43,22 +43,25 @@ Uma plataforma escalável para leilões em tempo real, com processamento de lanc
 ### Variáveis de Ambiente
 Antes de executar, crie um arquivo `.env` na raiz do projeto seguindo o modelo [.env.example](.env.example):  
 ```ini
-# Kafka
-KAFKA_BOOTSTRAP_SERVERS=localhost:9092
-KAFKA_TOPIC_BIDS=bids
-KAFKA_TOPIC_AUCTION_EVENTS=auction_events
+# profiles das aplicações
+APP_ENV=development
+COMPOSE_PROFILES=dev
 
-# Banco de Dados
-POSTGRES_DB=auction_db
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=senha_segura
+# endereços de acesso ao Kafka
+KAFKA_UI_PORT=9000
+KAFKA_BOOTSTRAP_SERVERS=kafka:9092
 
-# Autenticação
-JWT_SECRET=chave_secreta_jwt
-JWT_EXPIRATION_MS=3600000  # 1 hora
+# configurações de portas e endereços para acessar o GraphQL
+API_PORT=7001
+FRONTEND_PORT=8080
+URL_ACCESS=http://localhost:${FRONTEND_PORT}
 
-# Aplicação
-SERVER_PORT=8080
+# configurações de acesso ao DB
+DB=banco
+DB_USER=USR_APLICACAO
+DB_PSW=Senha1234
+DB_PORT=5432
+DB_HOST=postgresql://db:${DB_PORT}/${DB}
 ```
 
 ### 🐳 Docker

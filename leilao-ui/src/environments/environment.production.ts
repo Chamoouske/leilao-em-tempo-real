@@ -1,3 +1,3 @@
 export const environment = {
-    graphQLUri: '%%GRAPHQL_URL%%'
+    graphQLUri: 'URL_DO_GRAPHQL'
 }; 
