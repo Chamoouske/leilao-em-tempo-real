@@ -20,7 +20,7 @@ public class BidService {
 
     public PublishResponseDto createBid(BidAuctionDto bid) {
         producer.accept(bid);
-        return new PublishResponseDto("Bid created successfully", true, bid.auctionId());
+        return new PublishResponseDto("Bid created successfully", true);
     }
 
     public List<AuctionDto> listBid(SearchBidDto search) {

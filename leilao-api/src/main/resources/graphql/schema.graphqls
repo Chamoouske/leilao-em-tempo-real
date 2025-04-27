@@ -1,13 +1,8 @@
+scalar DateTime
+
 input AuctionInput {
-    id: Int
     name: String!
     description: String
-    status: String
-    endDate: DateTime
-    version: Int
-    createdAt: DateTime
-    currentBid: Float
-    currentBidder: String
 }
 
 input BidInput {
@@ -20,19 +15,20 @@ input BidInput {
 input SearchBidInput {
     auctionId: Int
     bidderId: String
+    description: String
     amount: Float
 }
 
 type Auction {
     id: Int!
     name: String!
-    description: String!
-    status: String!
-    endDate: DateTime!
-    version: Int!
-    createdAt: DateTime!
-    currentBid: Float!
-    currentBidder: String!
+    description: String
+    status: String
+    endDate: DateTime
+    version: Int
+    createdAt: DateTime
+    currentBid: Float
+    currentBidder: String
 }
 
 type Bid {
@@ -49,14 +45,10 @@ type PublishResponse {
 }
 
 type Query {
-    auction(id: Int!): Auction
-    auctions: [Auction!]!
-    bid(id: Int!): Bid
-    bids(auctionId: Int!): [Bid!]!
+    auctions(input: SearchBidInput!): [Auction]!
 }
 
 type Mutation {
-    createAuction(input: AuctionInput!): Auction!
-    createBid(input: BidInput!): Bid!
-    publishAuction(id: Int!): PublishResponse!
+    createAuction(input: AuctionInput!): PublishResponse!
+    createBid(input: BidInput!): PublishResponse!
 }

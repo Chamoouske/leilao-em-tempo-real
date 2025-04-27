@@ -2,5 +2,8 @@ package br.com.leilao.api.bid.dto;
 
 import java.math.BigDecimal;
 
-public record SearchBidDto(Long auctionId, String bidderId, BigDecimal amount) {
+import lombok.Builder;
+
+@Builder
+public record SearchBidDto(Long auctionId, String bidderId, BigDecimal amount, String description) {
 }

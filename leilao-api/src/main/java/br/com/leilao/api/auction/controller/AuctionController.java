@@ -18,13 +18,13 @@ import java.util.List;
 public class AuctionController {
     private final AuctionService service;
 
-    @MutationMapping(value = "new/auction")
-    public PublishResponseDto createAuction(@Argument AuctionDto det) {
+    @MutationMapping(value = "createAuction")
+    public PublishResponseDto createAuction(@Argument("input") AuctionDto det) {
         return service.createAuction(det);
     }
 
-    @QueryMapping(value = "list/auction")
-    public List<AuctionDto> listAuction(@Argument SearchBidDto search) {
+    @QueryMapping(value = "auctions")
+    public List<AuctionDto> listAuction(@Argument("input") SearchBidDto search) {
         return service.listAuction(search);
     }
 }

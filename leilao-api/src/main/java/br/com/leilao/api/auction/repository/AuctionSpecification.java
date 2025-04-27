@@ -20,10 +20,10 @@ public class AuctionSpecification implements Specification<Auction> {
     @Override
     public Predicate toPredicate(@NonNull Root<Auction> root, @NonNull CriteriaQuery<?> query,
             @NonNull CriteriaBuilder criteriaBuilder) {
-        return criteriaBuilder.and(
-                criteriaBuilder.equal(root.get("id"), search.auctionId()),
-                criteriaBuilder.equal(root.get("bidderId"), search.bidderId()),
-                criteriaBuilder.equal(root.get("amount"), search.amount()));
+        return id(search.auctionId())
+                .and(bidderId(search.bidderId()))
+                .and(amout(search.amount()))
+                .toPredicate(root, query, criteriaBuilder);
     }
 
     public static Specification<Auction> id(Long auctionId) {
@@ -40,7 +40,7 @@ public class AuctionSpecification implements Specification<Auction> {
             if (bidderId == null) {
                 return null;
             }
-            return criteriaBuilder.equal(root.get("bidderId"), bidderId);
+            return criteriaBuilder.equal(root.get("currentBidder"), bidderId);
         };
     }
 

@@ -22,7 +22,7 @@ public class AuctionService {
 
     public PublishResponseDto createAuction(AuctionDto auctionDto) {
         producer.accept(auctionDto);
-        return new PublishResponseDto("Auction created successfully", true, auctionDto.id());
+        return new PublishResponseDto("Auction created successfully", true);
     }
 
     public List<AuctionDto> listAuction(SearchBidDto search) {
