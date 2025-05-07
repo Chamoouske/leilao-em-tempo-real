@@ -1,7 +1,7 @@
 import { Injectable, signal, Signal } from "@angular/core";
 import { Apollo } from "apollo-angular";
-import { GET_AUCTIONS, NEW_AUCTION } from "../graphql/querys";
-import { Auction, SearchAuctionInput } from "../models/Auction";
+import { BID_AUCTION, GET_AUCTIONS, NEW_AUCTION } from "../graphql/querys";
+import { Auction, BidAuctionInput, SearchAuctionInput } from "../models/Auction";
 import { map } from "rxjs";
 
 @Injectable({
@@ -30,6 +30,16 @@ export class AuctionsService {
     public newAuction(input: Auction) {
         return this.apollo.mutate({
             mutation: NEW_AUCTION,
+            variables: {
+                input
+            }
+        });
+    }
+
+    public newBid(input: BidAuctionInput) {
+        console.log(input);
+        return this.apollo.mutate({
+            mutation: BID_AUCTION,
             variables: {
                 input
             }
