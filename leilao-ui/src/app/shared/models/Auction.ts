@@ -14,6 +14,7 @@ export type BidAuctionInput = {
     auctionId: string;
     bidderId: string;
     amount: number;
+    auctionVersion: number;
 }
 
 export type SearchAuctionInput = {
